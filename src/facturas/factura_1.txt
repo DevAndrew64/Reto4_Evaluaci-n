@@ -1,0 +1,15 @@
+========================================
+        COMIDAS RAPIDAS KAIRO'S
+========================================
+Factura N: 1
+Cliente: Thiago Yepez
+----------------------------------------
+Hamburguesa Kairo's Clasica x3   $36.000
+Limonada Natural          x3   $15.000
+----------------------------------------
+Subtotal: $51.000
+IVA (8%): $4.080
+TOTAL A PAGAR: $55.080
+========================================
+Gracias por su compra en Kairo's
+Sistema desarrollado por Jhon Ponton - SENA ADSO23
