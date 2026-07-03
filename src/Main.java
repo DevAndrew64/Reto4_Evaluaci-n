@@ -62,7 +62,11 @@ public class Main {
             } else {
                 System.out.print("Cantidad: ");
                 int cantidad = leerEntero();
-                items.add(new ItemFactura(p, cantidad));
+                if (cantidad <= 0) {
+                    System.out.println("La cantidad debe ser mayor a 0");
+                } else {
+                    items.add(new ItemFactura(p, cantidad));
+                }
             }
 
             System.out.print("Agregar otro producto? (s/n): ");
