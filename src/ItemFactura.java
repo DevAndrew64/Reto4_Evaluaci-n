@@ -19,4 +19,8 @@ public class ItemFactura {
     public double getSubtotal() {
         return producto.getPrecio() * cantidad;
     }
+
+    public void sumarCantidad(int cantidadAdicional) {
+        this.cantidad += cantidadAdicional;
+    }
 }

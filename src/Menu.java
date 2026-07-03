@@ -22,7 +22,7 @@ public class Menu {
         System.out.println("       MENU COMIDAS RAPIDAS KAIRO'S");
         System.out.println("========================================");
         for (Producto p : productos) {
-            System.out.printf("%-4s %-42s $%,.0f%n", p.getCodigo(), p.getNombre(), p.getPrecio());
+            System.out.printf("%-4s %-42s %s%n", p.getCodigo(), p.getNombre(), Moneda.formatear(p.getPrecio()));
         }
         System.out.println("========================================");
     }

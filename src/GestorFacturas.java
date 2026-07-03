@@ -13,7 +13,11 @@ public class GestorFacturas {
     public String generarFactura(List<ItemFactura> items, String cliente, int numeroFactura) {
         File carpeta = new File(CARPETA);
         if (!carpeta.exists()) {
-            carpeta.mkdir();
+            boolean creada = carpeta.mkdir();
+            if (!creada) {
+                System.out.println("No se pudo crear la carpeta de facturas");
+                return null;
+            }
         }
 
         String nombreArchivo = CARPETA + File.separator + "factura_" + numeroFactura + ".txt";
@@ -42,8 +46,8 @@ public class GestorFacturas {
 
         double total = 0;
         for (ItemFactura item : items) {
-            contenido.append(String.format("%-25s x%-3d $%,.0f%n",
-                    item.getProducto().getNombre(), item.getCantidad(), item.getSubtotal()));
+            contenido.append(String.format("%-25s x%-3d %s%n",
+                    item.getProducto().getNombre(), item.getCantidad(), Moneda.formatear(item.getSubtotal())));
             total += item.getSubtotal();
         }
 
@@ -51,9 +55,9 @@ public class GestorFacturas {
         double totalFinal = total + iva;
 
         contenido.append("----------------------------------------\n");
-        contenido.append(String.format("Subtotal: $%,.0f%n", total));
-        contenido.append(String.format("IVA (8%%): $%,.0f%n", iva));
-        contenido.append(String.format("TOTAL A PAGAR: $%,.0f%n", totalFinal));
+        contenido.append("Subtotal: ").append(Moneda.formatear(total)).append("\n");
+        contenido.append("IVA (8%): ").append(Moneda.formatear(iva)).append("\n");
+        contenido.append("TOTAL A PAGAR: ").append(Moneda.formatear(totalFinal)).append("\n");
         contenido.append("========================================\n");
         contenido.append("Gracias por su compra en Kairo's\n");
         contenido.append("Sistema desarrollado por Jhon Ponton - SENA ADSO23\n");
@@ -98,5 +102,24 @@ public class GestorFacturas {
             }
         }
         return nombres;
+    }
+
+    public int obtenerSiguienteNumero() {
+        List<String> archivos = listarFacturas();
+        int mayor = 0;
+        for (String nombre : archivos) {
+            if (nombre.startsWith("factura_") && nombre.endsWith(".txt")) {
+                String numero = nombre.substring(8, nombre.length() - 4);
+                try {
+                    int n = Integer.parseInt(numero);
+                    if (n > mayor) {
+                        mayor = n;
+                    }
+                } catch (NumberFormatException e) {
+                    // nombre de archivo distinto al esperado, se ignora
+                }
+            }
+        }
+        return mayor + 1;
     }
 }
