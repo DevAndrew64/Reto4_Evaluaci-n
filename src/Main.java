@@ -8,10 +8,11 @@ public class Main {
     static Scanner sc = new Scanner(System.in);
     static Menu menu = new Menu();
     static GestorFacturas gestor = new GestorFacturas();
-    static int numeroFactura = 1;
+    static int numeroFactura;
 
     public static void main(String[] args) {
         mostrarBienvenida();
+        numeroFactura = gestor.obtenerSiguienteNumero();
         int opcion;
         do {
             System.out.println("\n1. Generar factura");

@@ -99,4 +99,23 @@ public class GestorFacturas {
         }
         return nombres;
     }
+
+    public int obtenerSiguienteNumero() {
+        List<String> archivos = listarFacturas();
+        int mayor = 0;
+        for (String nombre : archivos) {
+            if (nombre.startsWith("factura_") && nombre.endsWith(".txt")) {
+                String numero = nombre.substring(8, nombre.length() - 4);
+                try {
+                    int n = Integer.parseInt(numero);
+                    if (n > mayor) {
+                        mayor = n;
+                    }
+                } catch (NumberFormatException e) {
+                    // nombre de archivo distinto al esperado, se ignora
+                }
+            }
+        }
+        return mayor + 1;
+    }
 }
