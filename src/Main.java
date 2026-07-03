@@ -1,6 +1,7 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
@@ -30,6 +31,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("Gracias por usar el sistema de Kairo's");
+                    sc.close();
                     break;
                 default:
                     System.out.println("Opcion invalida");
@@ -52,7 +54,7 @@ public class Main {
         String cliente;
         do {
             System.out.print("Nombre del cliente: ");
-            cliente = sc.nextLine().trim();
+            cliente = leerLinea().trim();
             if (cliente.isEmpty()) {
                 System.out.println("El nombre del cliente no puede estar vacio");
             }
@@ -60,8 +62,14 @@ public class Main {
 
         String continuar;
         do {
-            System.out.print("Codigo del producto: ");
-            String codigo = sc.nextLine().trim();
+            System.out.print("Codigo del producto (o 'cancelar' para salir): ");
+            String codigo = leerLinea().trim();
+
+            if (codigo.equalsIgnoreCase("cancelar")) {
+                System.out.println("Factura cancelada");
+                return;
+            }
+
             Producto p = menu.buscarPorCodigo(codigo);
 
             if (p == null) {
@@ -72,15 +80,15 @@ public class Main {
                 if (cantidad <= 0) {
                     System.out.println("La cantidad debe ser mayor a 0");
                 } else {
-                    items.add(new ItemFactura(p, cantidad));
+                    agregarProducto(items, p, cantidad);
                 }
             }
 
             System.out.print("Agregar otro producto? (s/n): ");
-            continuar = sc.nextLine().trim();
+            continuar = leerLinea().trim();
             while (!continuar.equalsIgnoreCase("s") && !continuar.equalsIgnoreCase("n")) {
                 System.out.print("Respuesta invalida, escribe S o N: ");
-                continuar = sc.nextLine().trim();
+                continuar = leerLinea().trim();
             }
         } while (continuar.equalsIgnoreCase("s"));
 
@@ -122,9 +130,27 @@ public class Main {
 
     static int leerEntero() {
         try {
-            return Integer.parseInt(sc.nextLine().trim());
+            return Integer.parseInt(leerLinea().trim());
         } catch (NumberFormatException e) {
             return -1;
         }
+    }
+
+    static String leerLinea() {
+        try {
+            return sc.nextLine();
+        } catch (NoSuchElementException e) {
+            return "";
+        }
+    }
+
+    static void agregarProducto(List<ItemFactura> items, Producto p, int cantidad) {
+        for (ItemFactura item : items) {
+            if (item.getProducto().getCodigo().equalsIgnoreCase(p.getCodigo())) {
+                item.sumarCantidad(cantidad);
+                return;
+            }
+        }
+        items.add(new ItemFactura(p, cantidad));
     }
 }
