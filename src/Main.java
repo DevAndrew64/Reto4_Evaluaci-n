@@ -78,6 +78,10 @@ public class Main {
 
             System.out.print("Agregar otro producto? (s/n): ");
             continuar = sc.nextLine().trim();
+            while (!continuar.equalsIgnoreCase("s") && !continuar.equalsIgnoreCase("n")) {
+                System.out.print("Respuesta invalida, escribe S o N: ");
+                continuar = sc.nextLine().trim();
+            }
         } while (continuar.equalsIgnoreCase("s"));
 
         if (items.isEmpty()) {
