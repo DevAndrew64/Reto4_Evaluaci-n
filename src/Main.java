@@ -49,13 +49,19 @@ public class Main {
         menu.mostrarMenu();
         List<ItemFactura> items = new ArrayList<>();
 
-        System.out.print("Nombre del cliente: ");
-        String cliente = sc.nextLine();
+        String cliente;
+        do {
+            System.out.print("Nombre del cliente: ");
+            cliente = sc.nextLine().trim();
+            if (cliente.isEmpty()) {
+                System.out.println("El nombre del cliente no puede estar vacio");
+            }
+        } while (cliente.isEmpty());
 
         String continuar;
         do {
             System.out.print("Codigo del producto: ");
-            String codigo = sc.nextLine();
+            String codigo = sc.nextLine().trim();
             Producto p = menu.buscarPorCodigo(codigo);
 
             if (p == null) {
@@ -71,7 +77,7 @@ public class Main {
             }
 
             System.out.print("Agregar otro producto? (s/n): ");
-            continuar = sc.nextLine();
+            continuar = sc.nextLine().trim();
         } while (continuar.equalsIgnoreCase("s"));
 
         if (items.isEmpty()) {
