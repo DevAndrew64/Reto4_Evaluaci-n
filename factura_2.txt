@@ -1,0 +1,14 @@
+========================================
+        COMIDAS RAPIDAS KAIRO'S
+========================================
+Factura N: 2
+Cliente: H2
+----------------------------------------
+Hamburguesa Kairo's Doble Carne x3   $48.000
+----------------------------------------
+Subtotal: $48.000
+IVA (8%): $3.840
+TOTAL A PAGAR: $51.840
+========================================
+Gracias por su compra en Kairo's
+Sistema desarrollado por Jhon Ponton - SENA ADSO23
