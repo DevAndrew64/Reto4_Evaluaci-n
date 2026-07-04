@@ -5,10 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class GestorFacturas {
 
     private static final String CARPETA = "facturas";
+    private static final double TASA_IVA = 0.08;
 
     public String generarFactura(List<ItemFactura> items, String cliente, int numeroFactura) {
         File carpeta = new File(CARPETA);
@@ -37,21 +40,30 @@ public class GestorFacturas {
 
     private String construirContenido(List<ItemFactura> items, String cliente, int numeroFactura) {
         StringBuilder contenido = new StringBuilder();
+
+        String folio = String.format("KAI-%d-%04d", LocalDateTime.now().getYear(), numeroFactura);
+        String fecha = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+
         contenido.append("========================================\n");
         contenido.append("        COMIDAS RAPIDAS KAIRO'S\n");
+        contenido.append("   NIT: 900.123.456-7\n");
+        contenido.append("   Cra 45 #10-20, Barranquilla\n");
         contenido.append("========================================\n");
-        contenido.append("Factura N: ").append(numeroFactura).append("\n");
+        contenido.append("Factura N: ").append(folio).append("\n");
+        contenido.append("Fecha: ").append(fecha).append("\n");
         contenido.append("Cliente: ").append(cliente).append("\n");
+        contenido.append("----------------------------------------\n");
+        contenido.append(String.format("%-25s %-5s %s%n", "Producto", "Cant", "Subtotal"));
         contenido.append("----------------------------------------\n");
 
         double total = 0;
         for (ItemFactura item : items) {
-            contenido.append(String.format("%-25s x%-3d %s%n",
-                    item.getProducto().getNombre(), item.getCantidad(), Moneda.formatear(item.getSubtotal())));
+            contenido.append(String.format("%-25s x%-4d %s%n",
+                item.getProducto().getNombre(), item.getCantidad(), Moneda.formatear(item.getSubtotal())));
             total += item.getSubtotal();
-        }
+    }
 
-        double iva = total * 0.08;
+        double iva = total * TASA_IVA;
         double totalFinal = total + iva;
 
         contenido.append("----------------------------------------\n");
@@ -63,7 +75,7 @@ public class GestorFacturas {
         contenido.append("Sistema desarrollado por Jhon Ponton - SENA ADSO23\n");
 
         return contenido.toString();
-    }
+}
 
     private void escribirEnArchivo(File archivo, String contenido) {
         try {
