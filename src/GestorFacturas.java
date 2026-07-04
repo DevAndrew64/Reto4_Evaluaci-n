@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class GestorFacturas {
 
     private static final String CARPETA = "facturas";
-    private static final double TASA_IVA = 0.08;
+    private static final double TASA_IVA = 0.19;
 
     public String generarFactura(List<ItemFactura> items, String cliente, int numeroFactura) {
         File carpeta = new File(CARPETA);
@@ -75,7 +75,7 @@ public class GestorFacturas {
 
         contenido.append("----------------------------------------\n");
         contenido.append("Subtotal: ").append(Moneda.formatear(total)).append("\n");
-        contenido.append("IVA (8%): ").append(Moneda.formatear(iva)).append("\n");
+        contenido.append("IVA (19%): ").append(Moneda.formatear(iva)).append("\n");
         contenido.append("TOTAL A PAGAR: ").append(Moneda.formatear(totalFinal)).append("\n");
         contenido.append("========================================\n");
         contenido.append("Gracias por su compra en Kairo's\n");
