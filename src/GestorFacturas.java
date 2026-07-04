@@ -45,6 +45,13 @@ public class GestorFacturas {
         String fecha = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
         contenido.append("========================================\n");
+        contenido.append(
+         "     _  __    _    ___ ____   ___  ____       \n" +
+         "    | |/ /   / \\  |_ _|  _ \\ / _ \\/ ___|      \n" +
+         "    | ' /   / _ \\  | || |_) | | | \\___ \\      \n" +
+         "    | . \\  / ___ \\ | ||  _ <| |_| |___) |     \n" +
+         "    |_|\\_\\/_/   \\_\\___|_| \\_\\\\___/|____/          \n");
+         
         contenido.append("        COMIDAS RAPIDAS KAIRO'S\n");
         contenido.append("   NIT: 900.123.456-7\n");
         contenido.append("   Cra 45 #10-20, Barranquilla\n");
