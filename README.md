@@ -2,12 +2,19 @@
 
 ## Autoría
 
-**Desarrollado por:** Jhon Ponton (Jhon Andres Ponton Parra)
+**Desarrollado por:** 
+- Jhon Ponton (Jhon Andres Ponton Parra)
+- Sebastian Suarez
+- Luna Barreto
+
 **Programa:** Análisis y Desarrollo de Software (ADSO) - SENA
 **Ficha:** ADSO23
 **Proyecto:** Reto 4 - Evaluación de trimestre
 
-Todo el código de este repositorio fue escrito y versionado por el autor mencionado arriba. El historial de commits en la rama `features` documenta el proceso de desarrollo paso a paso.
+**Link del repositorio de Github: https://github.com/DevAndrew64/Reto4_Evaluaci-n**
+Se recomienda clonar el repo
+
+El código de este repositorio fue escrito, revisado y versionado en conjunto por el equipo de desarrollo mencionado arriba. El historial de commits en la rama `features` documenta el proceso de desarrollo y las contribuciones paso a paso.
 
 ## Descripción del problema
 
@@ -32,50 +39,3 @@ Comidas rápidas Kairo's necesita automatizar su proceso de facturación. Este p
 - **Prueba manual** (`PruebaNumeracion.java`) que valida el cálculo del siguiente número de factura sin depender de un framework externo.
 
 ## Estructura del proyecto
-
-```
-src/
-├── Main.java              # Menú de consola y flujo principal
-├── Menu.java               # Catálogo de productos de Kairo's
-├── Producto.java            # Modelo de producto (código, nombre, precio)
-├── ItemFactura.java          # Producto + cantidad dentro de una factura
-├── GestorFacturas.java        # Escritura, lectura y listado de facturas en archivos .txt
-├── Moneda.java              # Utilidad de formato de moneda (Locale es-CO)
-├── PruebaNumeracion.java      # Prueba manual de la numeración de facturas
-└── facturas/                # Carpeta generada en tiempo de ejecución (no versionada)
-```
-
-## Tecnologías y conceptos aplicados
-
-- Java estándar (sin frameworks ni dependencias externas).
-- Manejo de archivos con la clase `File`.
-- Escritura de texto con `FileWriter`.
-- Lectura de texto con `FileReader` + `BufferedReader`.
-- Manejo de excepciones (`try/catch`) para operaciones de E/S y de conversión de datos.
-- Programación orientada a objetos: separación de responsabilidades en clases pequeñas (modelo, lógica de negocio, persistencia, interfaz de consola).
-
-## Cómo compilar y ejecutar
-
-```bash
-cd src
-javac *.java
-java Main
-```
-
-Para correr la prueba manual de numeración:
-
-```bash
-java PruebaNumeracion
-```
-
-## Decisiones de diseño
-
-- **Sin frameworks de testing:** se optó por una prueba manual sin dependencias (en vez de JUnit) para no introducir Maven/Gradle en un proyecto que se compila directamente con `javac`.
-- **`Locale` fijo en es-CO:** para que el formato de los montos ($12.000 en vez de $12,000) sea siempre el mismo, sin depender de la configuración regional del sistema operativo donde corra el programa.
-- **Persistencia simple en `.txt`:** siguiendo el alcance del reto, cada factura es un archivo independiente dentro de `facturas/`, en lugar de una base de datos.
-
-## Posibles mejoras futuras
-
-- Migrar a un build tool (Maven/Gradle) para incorporar pruebas automatizadas con JUnit.
-- Guardar las facturas también en un formato estructurado (CSV/JSON) para facilitar reportes.
-- Agregar la opción de anular o corregir una factura ya generada.
